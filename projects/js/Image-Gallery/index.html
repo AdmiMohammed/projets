@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faouzia Gallery</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="gallery-wrap">
+        <img src="photo/back.png" alt="back" id="backbtn">
+        <div class="gallery">
+            <div>
+                <span><img src="photo/faouzia1.jpg" alt="faouzia1"></span> 
+                <span><img src="photo/faouzia2.jpg" alt="faouzia2"></span> 
+                <span><img src="photo/faouzia3.jpg" alt="faouzia3"></span> 
+                <span><img src="photo/faouzia4.jpg" alt="faouzia4"></span> 
+            </div>
+            <div>
+                <span><img src="photo/faouzia5.jpg" alt="faouzia5"></span> 
+                <span><img src="photo/faouzia6.jpg" alt="faouzia6"></span> 
+                <span><img src="photo/faouzia7.jpg" alt="faouzia7"></span> 
+                <span><img src="photo/faouzia8.jpg" alt="faouzia8"></span> 
+            </div>
+        </div>
+        <img src="photo/next.png" alt="next" id="nextbtn">
+    </div>
+    <script>
+        const scrollContainer = document.querySelector(".gallery");
+        const backbtn = document.getElementById("backbtn");
+        const nextbtn = document.getElementById("nextbtn");
+
+        scrollContainer.addEventListener("wheel", (evt) => {
+            evt.preventDefault();
+            scrollContainer.scrollLeft += evt.deltaY;
+            scrollContainer.style.scrollBehavior = "auto";
+        });
+
+       
+        nextbtn.addEventListener("click", () => {
+            scrollContainer.style.scrollBehavior = "smooth";
+            scrollContainer.scrollLeft += 900;
+        });
+
+        
+        backbtn.addEventListener("click", () => {
+            scrollContainer.style.scrollBehavior = "smooth";
+            scrollContainer.scrollLeft -= 900; // Corrected subtraction
+        });
+    </script>
+</body>
+</html>

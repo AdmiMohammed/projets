@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pusic-player Design - Easy Tutorials</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="music-player">
+            <nav>
+                <div class="circle">
+                    <i class="fa-solid fa-angle-left"></i>
+                </div>
+                <div class="circle">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
+            </nav>
+            <img src="media/hnaya.jpg" class="song-img">
+            <h1>Avec Le Temps</h1>
+            <p>Cheb L3arbi</p>
+            <!-- Audio sans contrôle natif (on le cachera avec CSS) -->
+            <audio id="song">
+                <source src="media/3arbi.m4a" type="audio/mpeg"> 
+                Votre navigateur ne supporte pas l'élément audio.
+            </audio>
+            <input type="range" value="0" id="progress" />
+            <div class="controls">
+                <div><i class="fa-solid fa-backward"></i></div>
+                <div onclick="playPause()"><i class="fa-solid fa-play" id="ctrlIcon"></i></div>
+                <div><i class="fa-solid fa-forward"></i></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        let progress = document.getElementById("progress");
+        let song = document.getElementById("song");
+        let ctrlIcon = document.getElementById("ctrlIcon");
+    
+        song.onloadedmetadata = function () {
+            progress.max = song.duration;
+            progress.value = song.currentTime;
+        };
+    
+        function playPause() {
+            if (ctrlIcon.classList.contains("fa-pause")) {
+                song.pause();
+                ctrlIcon.classList.remove("fa-pause");
+                ctrlIcon.classList.add("fa-play");
+            } else {
+                song.play();
+                ctrlIcon.classList.remove("fa-play");
+                ctrlIcon.classList.add("fa-pause");
+            }
+        }
+
+        // Mise à jour de la barre de progression pendant la lecture
+        song.addEventListener('play', function() {
+            setInterval(() => {
+                progress.value = song.currentTime;
+            }, 500);
+        });
+
+        // Changement de la position du son lorsque la barre de progression est modifiée
+        progress.onchange = function() {
+            song.currentTime = progress.value;
+            song.play();
+            ctrlIcon.classList.add("fa-pause");
+            ctrlIcon.classList.remove("fa-play");
+        };
+
+        // Cacher l'élément audio
+        song.style.display = 'none';
+    </script>
+</body>
+</html>
